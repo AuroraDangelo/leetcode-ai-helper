@@ -1,5 +1,13 @@
 {
     "manifest_version": 3,
+
     "name": "Leetcode AI Helper",
-    "version": "1.0"
+    
+    "version": "1.0",
+
+    "description": "AI-powered hints for leetcode problems",
+
+    "action":{
+        "default_popup": "popup.html"
+    }
 }
