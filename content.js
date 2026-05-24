@@ -14,9 +14,15 @@ const difficultyElement=document.querySelector(
     '[class*="text-difficulty"]'
 );
 
-console.log("Title:",titleElement.textContent);
-
-console.log("Difficulty:",
-    difficultyElement.textContent
+const descriptionElement=document.querySelector(
+    '[data-track-load="description_content"]'
 );
+
+const problemData={
+    title: titleElement.textContent,
+    difficulty: difficultyElement.textContent,
+    description:descriptionElement.innerText
+};
+
+console.log(problemData);
 
