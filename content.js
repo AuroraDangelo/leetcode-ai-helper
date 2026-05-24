@@ -10,4 +10,13 @@ const selector=
 const titleElement=
 document.querySelector(selector);
 
-console.log(titleElement.textContent);
+const difficultyElement=document.querySelector(
+    '[class*="text-difficulty"]'
+);
+
+console.log("Title:",titleElement.textContent);
+
+console.log("Difficulty:",
+    difficultyElement.textContent
+);
+
