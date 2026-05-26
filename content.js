@@ -125,12 +125,41 @@ aiPanel.innerHTML = `
     margin-top:20px;
   ">
 
-    <h3>AI Hint</h3>
+    <div style="
+  margin-top:20px;
+">
 
-    <p>
-      Try thinking about
-      hashmap-based approaches.
-    </p>
+  <input
+    id="api-key-input"
+    type="password"
+    placeholder="Enter OpenAI API Key"
+    style="
+      width:100%;
+      padding:10px;
+      border-radius:8px;
+      border:none;
+      margin-bottom:10px;
+    "
+  />
+
+  <button id="save-api-key">
+    Save API Key
+  </button>
+
+</div>
+
+<div style="
+  margin-top:20px;
+">
+
+  <h3>AI Hint</h3>
+
+  <p>
+    Try thinking about
+    hashmap-based approaches.
+  </p>
+
+</div>
 
   </div>
 `;
@@ -158,6 +187,58 @@ closeButton.addEventListener(
 
     aiPanel.style.display =
       "none";
+
+  }
+);
+const saveButton =
+  document.getElementById(
+    "save-api-key"
+  );
+
+saveButton.addEventListener(
+  "click",
+  () => {
+
+    const apiKeyInput =
+      document.getElementById(
+        "api-key-input"
+      );
+
+    const apiKey =
+      apiKeyInput.value;
+
+    chrome.storage.local.set(
+      {
+        openaiApiKey: apiKey
+      },
+
+      () => {
+
+        alert(
+          "API Key Saved!"
+        );
+
+      }
+    );
+
+  }
+);
+chrome.storage.local.get(
+  ["openaiApiKey"],
+
+  (result) => {
+
+    if (result.openaiApiKey) {
+
+      const apiKeyInput =
+        document.getElementById(
+          "api-key-input"
+        );
+
+      apiKeyInput.value =
+        result.openaiApiKey;
+
+    }
 
   }
 );
