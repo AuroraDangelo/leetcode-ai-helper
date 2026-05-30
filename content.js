@@ -154,10 +154,9 @@ aiPanel.innerHTML = `
 
   <h3>AI Hint</h3>
 
-  <p>
-    Try thinking about
-    hashmap-based approaches.
-  </p>
+<div id="ai-response">
+  Click "Ask AI" to generate hint.
+</div>
 
 </div>
 
@@ -168,10 +167,12 @@ document.body.appendChild(aiPanel);
 
 aiButton.addEventListener(
   "click",
-  () => {
+  async () => {
 
     aiPanel.style.display =
       "block";
+
+    await generateAIHint();
 
   }
 );
@@ -242,3 +243,21 @@ chrome.storage.local.get(
 
   }
 );
+async function generateAIHint() {
+
+  const aiResponseElement =
+    document.getElementById(
+      "ai-response"
+    );
+
+  aiResponseElement.innerText =
+    "Thinking...";
+
+  setTimeout(() => {
+
+    aiResponseElement.innerText =
+      "Try thinking about using a hashmap to store previously seen values.";
+
+  }, 1000);
+
+}

@@ -8,6 +8,8 @@
     "description": "AI-powered hints for leetcode problems",
 
     "permissions": ["tabs","storage"],
+   
+    "host_permissions": ["https://generativelanguage.googleapis.com/*"],
 
     "action":{
         "default_popup": "popup.html"
