@@ -152,10 +152,42 @@ aiPanel.innerHTML = `
   margin-top:20px;
 ">
 
-  <h3>AI Hint</h3>
+ <div
+  id="chat-messages"
+  style="
+    height:220px;
+    overflow-y:auto;
+    margin-top:20px;
+    padding:10px;
+    background:#1f2937;
+    border-radius:10px;
+  "
+>
+</div>
 
-<div id="ai-response">
-  Click "Ask AI" to generate hint.
+<div style="margin-top:10px;">
+
+  <input
+    id="chat-input"
+    placeholder="Ask for a hint..."
+    style="
+      width:100%;
+      padding:10px;
+      border-radius:8px;
+      border:none;
+    "
+  />
+
+  <button
+    id="send-message"
+    style="
+      margin-top:10px;
+      width:100%;
+    "
+  >
+    Send
+  </button>
+
 </div>
 
 </div>
@@ -243,21 +275,62 @@ chrome.storage.local.get(
 
   }
 );
-async function generateAIHint() {
+const sendButton =
+  document.getElementById(
+    "send-message"
+  );
 
-  const aiResponseElement =
-    document.getElementById(
-      "ai-response"
-    );
+sendButton.addEventListener(
+  "click",
+  async () => {
 
-  aiResponseElement.innerText =
-    "Thinking...";
+    const chatInput =
+      document.getElementById(
+        "chat-input"
+      );
 
-  setTimeout(() => {
+    const chatMessages =
+      document.getElementById(
+        "chat-messages"
+      );
 
-    aiResponseElement.innerText =
-      "Try thinking about using a hashmap to store previously seen values.";
+    const userMessage =
+      chatInput.value;
 
-  }, 1000);
+    if (!userMessage) return;
+
+    chatMessages.innerHTML += `
+      <p>
+        <strong>You:</strong>
+        ${userMessage}
+      </p>
+    `;
+
+    const aiHint =
+      await generateAIHint(
+        userMessage
+      );
+
+    chatMessages.innerHTML += `
+      <p>
+        <strong>AI:</strong>
+        ${aiHint}
+      </p>
+    `;
+
+    chatInput.value = "";
+
+  }
+);
+async function generateAIHint(userMessage) {
+
+  return `Hint for "${userMessage}"
+
+Try thinking about:
+- Hash maps
+- Two pointers
+- Sliding window
+
+depending on the problem.`;
 
 }
