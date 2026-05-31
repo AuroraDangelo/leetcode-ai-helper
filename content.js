@@ -199,12 +199,9 @@ document.body.appendChild(aiPanel);
 
 aiButton.addEventListener(
   "click",
-  async () => {
+  () => {
 
-    aiPanel.style.display =
-      "block";
-
-    await generateAIHint();
+  aiPanel.style.display="block";
 
   }
 );
@@ -299,26 +296,50 @@ sendButton.addEventListener(
 
     if (!userMessage) return;
 
-    chatMessages.innerHTML += `
-      <p>
-        <strong>You:</strong>
-        ${userMessage}
-      </p>
-    `;
-
-    const aiHint =
-      await generateAIHint(
-        userMessage
-      );
-
-    chatMessages.innerHTML += `
-      <p>
-        <strong>AI:</strong>
-        ${aiHint}
-      </p>
-    `;
+    chatMessages.innerHTML+=`
+    <div style="
+      display:flex;
+      justify-content:flex-end;
+      margin-bottom:10px;
+      ">
+      <div style="background:#2563eb;
+      color:white;
+      padding:10px;
+      border-radius:12px;
+      max-width:80%;
+      ">
+      ${userMessage}
+      </div>
+      </div>
+      `;
+      const aiHint =
+  await generateAIHint(
+    userMessage
+  );
+      chatMessages.innerHTML += `
+  <div
+    style="
+      display:flex;
+      justify-content:flex-start;
+      margin-bottom:10px;
+    "
+  >
+    <div
+      style="
+        background:#374151;
+        color:white;
+        padding:10px;
+        border-radius:12px;
+        max-width:80%;
+      "
+    >
+      ${aiHint}
+    </div>
+  </div>
+`;
 
     chatInput.value = "";
+    chatMessages.scrollTop=chatMessages.scrollHeight;
 
   }
 );
@@ -334,3 +355,20 @@ Try thinking about:
 depending on the problem.`;
 
 }
+const chatInput =
+  document.getElementById(
+    "chat-input"
+  );
+
+chatInput.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (event.key === "Enter") {
+
+      sendButton.click();
+
+    }
+
+  }
+);
