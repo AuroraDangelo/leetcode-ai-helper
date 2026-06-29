@@ -345,91 +345,238 @@ sendButton.addEventListener(
 );
 async function generateAIHint(userMessage) {
 
-    const topics = problemData.topics;
+    const text =
+        (
+            problemData.title +
+            " " +
+            problemData.description
+        ).toLowerCase();
 
-    if (topics.includes("Array")) {
-        return `📦 Array Hint
+    const categories = [
 
-• Think about traversing the array only once.
+        {
+            name: "String",
 
-• Can Hash Maps reduce time complexity?
+            keywords: [
+                "string",
+                "substring",
+                "character",
+                "word",
+                "palindrome",
+                "anagram",
+                "prefix",
+                "suffix"
+            ],
 
-• Watch for duplicate values.`;
-    }
-
-    if (topics.includes("String")) {
-        return `🔤 String Hint
+            hint:
+`🔤 String Hint
 
 • Think about substring operations.
 
-• Two pointers or Sliding Window may help.
+• Sliding Window or Two Pointers may help.
 
-• Built-in string functions can simplify the solution.`;
-    }
+• Built-in string functions can simplify the solution.`
+        },
 
-    if (topics.includes("Hash Table")) {
-        return `🗂 Hash Table Hint
+        {
+            name: "Array",
 
-• Can you store previously seen values?
+            keywords: [
+                "array",
+                "index",
+                "indices",
+                "element",
+                "elements"
+            ],
 
-• Think about constant-time lookup.
+            hint:
+`📦 Array Hint
 
-• Maps are often useful here.`;
-    }
+• Traverse efficiently.
 
-    if (topics.includes("Binary Search")) {
-        return `🔍 Binary Search Hint
+• Hash Maps can reduce complexity.
 
-• Is the search space sorted?
+• Can you solve it in one pass?`
+        },
 
-• Can you eliminate half of it every iteration?`;
-    }
+        {
+            name: "Hash Map",
 
-    if (topics.includes("Tree")) {
-        return `🌳 Tree Hint
+            keywords: [
+                "hash",
+                "map",
+                "dictionary",
+                "frequency"
+            ],
+
+            hint:
+`🗂 Hash Map Hint
+
+• Store previously seen values.
+
+• Frequency counting may help.
+
+• Constant-time lookup is powerful.`
+        },
+
+        {
+            name: "Binary Search",
+
+            keywords: [
+                "binary search",
+                "sorted",
+                "ascending",
+                "descending"
+            ],
+
+            hint:
+`🔍 Binary Search Hint
+
+• Can you eliminate half the search space?
+
+• Check the search boundaries carefully.`
+        },
+
+        {
+            name: "Tree",
+
+            keywords: [
+                "tree node",
+                "binary tree",
+                "bst",
+                "root",
+                "left child",
+                "right child"
+            ],
+
+            hint:
+`🌳 Tree Hint
 
 • DFS or BFS?
 
-• Consider recursive traversal.
+• Recursive traversal is often useful.
 
-• Think about parent-child relationships.`;
-    }
+• Consider parent-child relationships.`
+        },
 
-    if (topics.includes("Linked List")) {
-        return `🔗 Linked List Hint
+        {
+            name: "Linked List",
+
+            keywords: [
+                "linked list",
+                "listnode",
+                "next pointer"
+            ],
+
+            hint:
+`🔗 Linked List Hint
 
 • Think about pointer manipulation.
 
-• Dummy nodes often simplify the logic.`;
-    }
+• Dummy nodes simplify many problems.`
+        },
 
-    if (topics.includes("Graph")) {
-        return `🕸 Graph Hint
+        {
+            name: "Graph",
 
-• DFS/BFS?
+            keywords: [
+                "graph",
+                "vertex",
+                "vertices",
+                "edge",
+                "adjacency"
+            ],
 
-• Maintain a visited set.
+            hint:
+`🕸 Graph Hint
 
-• Think in terms of connected components.`;
-    }
+• DFS or BFS?
 
-    if (topics.includes("Dynamic Programming")) {
-        return `⚡ DP Hint
+• Track visited nodes.
+
+• Think about connected components.`
+        },
+
+        {
+            name: "Matrix",
+
+            keywords: [
+                "matrix",
+                "grid",
+                "cell",
+                "row",
+                "column"
+            ],
+
+            hint:
+`🟦 Matrix Hint
+
+• Handle boundaries carefully.
+
+• Direction arrays simplify movement.`
+        },
+
+        {
+            name: "Dynamic Programming",
+
+            keywords: [
+                "dynamic programming",
+                "dp"
+            ],
+
+            hint:
+`⚡ Dynamic Programming Hint
 
 • Define the state.
 
-• Find the recurrence relation.
+• Find the recurrence.
 
-• Memoization first, tabulation later.`;
+• Memoization before tabulation.`
+        }
+
+    ];
+
+    let bestCategory = null;
+
+    let bestScore = 0;
+
+    for (const category of categories) {
+
+        let score = 0;
+
+        for (const keyword of category.keywords) {
+
+            if (text.includes(keyword)) {
+
+                score++;
+
+            }
+
+        }
+
+        if (score > bestScore) {
+
+            bestScore = score;
+
+            bestCategory = category;
+
+        }
+
+    }
+
+    if (bestCategory) {
+
+        return bestCategory.hint;
+
     }
 
     return `💡 General Hint
 
 • Read the constraints carefully.
 
-• Identify the required data structure.
+• Think about the required data structure.
 
-• Think about time complexity before coding.`;
+• Try solving the brute-force solution first before optimizing.`;
 
 }
 
