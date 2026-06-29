@@ -345,16 +345,200 @@ sendButton.addEventListener(
 );
 async function generateAIHint(userMessage) {
 
-  return `Hint for "${userMessage}"
+  const text = (
+    problemData.title +
+    " " +
+    problemData.description
+  ).toLowerCase();
 
-Try thinking about:
-- Hash maps
-- Two pointers
-- Sliding window
+  const hintDatabase = [
 
-depending on the problem.`;
+    {
+      keywords: [
+        "linked list",
+        "listnode"
+      ],
+
+      hint: `💡 Linked List Hint
+
+• Think about pointer manipulation.
+
+• Would using a dummy node simplify the solution?
+
+• Be careful while updating next pointers.`
+    },
+
+    {
+      keywords: [
+        "binary tree",
+        "tree node",
+        "bst"
+      ],
+
+      hint: `🌳 Tree Hint
+
+• Think about DFS or BFS.
+
+• Can recursion simplify the traversal?
+
+• Consider preorder, inorder or postorder.`
+    },
+
+    {
+      keywords: [
+        "graph",
+        "edge",
+        "vertex"
+      ],
+
+      hint: `🕸️ Graph Hint
+
+• Does this require BFS or DFS?
+
+• Could Union-Find help?
+
+• Watch for visited nodes.`
+    },
+
+    {
+      keywords: [
+        "matrix",
+        "grid"
+      ],
+
+      hint: `🟦 Matrix Hint
+
+• Carefully handle boundaries.
+
+• Direction arrays can simplify movement.
+
+• Think row-wise and column-wise.`
+    },
+
+    {
+      keywords: [
+        "string"
+      ],
+
+      hint: `🔤 String Hint
+
+• Would two pointers help?
+
+• Can Sliding Window solve it?
+
+• Frequency maps are often useful.`
+    },
+
+    {
+      keywords: [
+        "array"
+      ],
+
+      hint: `📦 Array Hint
+
+• Hash Maps are common.
+
+• Two Pointers may reduce complexity.
+
+• Think about the constraints.`
+    },
+
+    {
+      keywords: [
+        "dynamic programming",
+        "dp"
+      ],
+
+      hint: `⚡ DP Hint
+
+• Define your state.
+
+• Find the transition.
+
+• Consider memoization first.`
+    },
+
+    {
+      keywords: [
+        "stack"
+      ],
+
+      hint: `📚 Stack Hint
+
+• Ask yourself:
+
+Can the last inserted element
+help solve this problem?`
+    },
+
+    {
+      keywords: [
+        "queue"
+      ],
+
+      hint: `🚶 Queue Hint
+
+• FIFO behaviour may be useful.
+
+• Consider level-order traversal.`
+    },
+
+    {
+      keywords: [
+        "heap",
+        "priority queue"
+      ],
+
+      hint: `🏔️ Heap Hint
+
+• Do you repeatedly need
+the smallest or largest element?
+
+• A priority queue may help.`
+    },
+
+    {
+      keywords: [
+        "binary search",
+        "sorted"
+      ],
+
+      hint: `🔍 Binary Search Hint
+
+• The input is sorted.
+
+• Can you eliminate half
+the search space each step?`
+    }
+
+  ];
+
+  for (const topic of hintDatabase) {
+
+    for (const keyword of topic.keywords) {
+
+      if (text.includes(keyword)) {
+
+        return topic.hint;
+
+      }
+
+    }
+
+  }
+
+  return `💡 General Hint
+
+• Read the constraints carefully.
+
+• Think about the required
+time complexity.
+
+• Which data structure
+fits this problem best?`;
 
 }
+
 const chatInput =
   document.getElementById(
     "chat-input"
