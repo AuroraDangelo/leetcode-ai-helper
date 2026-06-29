@@ -345,197 +345,91 @@ sendButton.addEventListener(
 );
 async function generateAIHint(userMessage) {
 
-  const text = (
-    problemData.title +
-    " " +
-    problemData.description
-  ).toLowerCase();
+    const topics = problemData.topics;
 
-  const hintDatabase = [
+    if (topics.includes("Array")) {
+        return `📦 Array Hint
 
-    {
-      keywords: [
-        "linked list",
-        "listnode"
-      ],
+• Think about traversing the array only once.
 
-      hint: `💡 Linked List Hint
+• Can Hash Maps reduce time complexity?
+
+• Watch for duplicate values.`;
+    }
+
+    if (topics.includes("String")) {
+        return `🔤 String Hint
+
+• Think about substring operations.
+
+• Two pointers or Sliding Window may help.
+
+• Built-in string functions can simplify the solution.`;
+    }
+
+    if (topics.includes("Hash Table")) {
+        return `🗂 Hash Table Hint
+
+• Can you store previously seen values?
+
+• Think about constant-time lookup.
+
+• Maps are often useful here.`;
+    }
+
+    if (topics.includes("Binary Search")) {
+        return `🔍 Binary Search Hint
+
+• Is the search space sorted?
+
+• Can you eliminate half of it every iteration?`;
+    }
+
+    if (topics.includes("Tree")) {
+        return `🌳 Tree Hint
+
+• DFS or BFS?
+
+• Consider recursive traversal.
+
+• Think about parent-child relationships.`;
+    }
+
+    if (topics.includes("Linked List")) {
+        return `🔗 Linked List Hint
 
 • Think about pointer manipulation.
 
-• Would using a dummy node simplify the solution?
-
-• Be careful while updating next pointers.`
-    },
-
-    {
-      keywords: [
-        "binary tree",
-        "tree node",
-        "bst"
-      ],
-
-      hint: `🌳 Tree Hint
-
-• Think about DFS or BFS.
-
-• Can recursion simplify the traversal?
-
-• Consider preorder, inorder or postorder.`
-    },
-
-    {
-      keywords: [
-        "graph",
-        "edge",
-        "vertex"
-      ],
-
-      hint: `🕸️ Graph Hint
-
-• Does this require BFS or DFS?
-
-• Could Union-Find help?
-
-• Watch for visited nodes.`
-    },
-
-    {
-      keywords: [
-        "matrix",
-        "grid"
-      ],
-
-      hint: `🟦 Matrix Hint
-
-• Carefully handle boundaries.
-
-• Direction arrays can simplify movement.
-
-• Think row-wise and column-wise.`
-    },
-
-    {
-      keywords: [
-        "string"
-      ],
-
-      hint: `🔤 String Hint
-
-• Would two pointers help?
-
-• Can Sliding Window solve it?
-
-• Frequency maps are often useful.`
-    },
-
-    {
-      keywords: [
-        "array"
-      ],
-
-      hint: `📦 Array Hint
-
-• Hash Maps are common.
-
-• Two Pointers may reduce complexity.
-
-• Think about the constraints.`
-    },
-
-    {
-      keywords: [
-        "dynamic programming",
-        "dp"
-      ],
-
-      hint: `⚡ DP Hint
-
-• Define your state.
-
-• Find the transition.
-
-• Consider memoization first.`
-    },
-
-    {
-      keywords: [
-        "stack"
-      ],
-
-      hint: `📚 Stack Hint
-
-• Ask yourself:
-
-Can the last inserted element
-help solve this problem?`
-    },
-
-    {
-      keywords: [
-        "queue"
-      ],
-
-      hint: `🚶 Queue Hint
-
-• FIFO behaviour may be useful.
-
-• Consider level-order traversal.`
-    },
-
-    {
-      keywords: [
-        "heap",
-        "priority queue"
-      ],
-
-      hint: `🏔️ Heap Hint
-
-• Do you repeatedly need
-the smallest or largest element?
-
-• A priority queue may help.`
-    },
-
-    {
-      keywords: [
-        "binary search",
-        "sorted"
-      ],
-
-      hint: `🔍 Binary Search Hint
-
-• The input is sorted.
-
-• Can you eliminate half
-the search space each step?`
+• Dummy nodes often simplify the logic.`;
     }
 
-  ];
+    if (topics.includes("Graph")) {
+        return `🕸 Graph Hint
 
-  for (const topic of hintDatabase) {
+• DFS/BFS?
 
-    for (const keyword of topic.keywords) {
+• Maintain a visited set.
 
-      if (text.includes(keyword)) {
-
-        return topic.hint;
-
-      }
-
+• Think in terms of connected components.`;
     }
 
-  }
+    if (topics.includes("Dynamic Programming")) {
+        return `⚡ DP Hint
 
-  return `💡 General Hint
+• Define the state.
+
+• Find the recurrence relation.
+
+• Memoization first, tabulation later.`;
+    }
+
+    return `💡 General Hint
 
 • Read the constraints carefully.
 
-• Think about the required
-time complexity.
+• Identify the required data structure.
 
-• Which data structure
-fits this problem best?`;
+• Think about time complexity before coding.`;
 
 }
 
