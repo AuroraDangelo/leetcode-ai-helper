@@ -104,7 +104,7 @@ Some ideas planned for future versions include:
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/leetcode-ai-helper.git
+git clone https://github.com/AuroraDangelo/leetcode-ai-helper.git
 ```
 
 Open Chrome and go to:
