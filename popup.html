@@ -1,23 +1,56 @@
 <!DOCTYPE html>
-<html lang="en"></html>
-
+<html lang="en">
 <head>
-<meta charset=""UTF-8">
-
-<title>Leetcode AI Helper</title>
-
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetCode Gemini AI Helper</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-
-        <h1>Leetcode AI Helper</h1>
-
-        <button id="hint-btn">Get Hint</button>
-
-        <div id="result"></div>
-
+  <div class="popup-container">
+    <div class="header">
+      <div class="brand">
+        <span class="icon">✨</span>
+        <span class="title">LeetCode AI Helper</span>
+      </div>
+      <span class="badge">Gemini</span>
     </div>
-    <script src="popup.js"></script>
+
+    <div id="page-status" class="status-card">
+      <div id="problem-info" class="problem-info" style="display:none;">
+        <div class="problem-header">
+          <span id="prob-title" class="prob-title">Two Sum</span>
+          <span id="prob-diff" class="prob-diff diff-medium">Medium</span>
+        </div>
+        <button id="open-panel-btn" class="primary-btn">Open AI Assistant on Page</button>
+      </div>
+
+      <div id="not-on-leetcode" class="not-on-leetcode">
+        <p>Open any problem on <strong>leetcode.com</strong> to get hints!</p>
+        <a href="https://leetcode.com/problemset/" target="_blank" class="link-btn">Go to LeetCode</a>
+      </div>
+    </div>
+
+    <div class="key-section">
+      <div class="key-header">
+        <span>🔑 Gemini API Key</span>
+        <span id="key-badge" class="key-badge not-configured">Not set</span>
+      </div>
+      <div class="key-row">
+        <input type="password" id="popup-api-key" placeholder="AIzaSy... (Paste Gemini key)">
+        <button id="save-key-btn" class="save-btn">Save</button>
+      </div>
+      <p class="key-help">
+        Get a 100% free key at
+        <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a>.
+      </p>
+    </div>
+
+    <div class="footer">
+      <span>Powered by Google Gemini 1.5 Flash</span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
 </body>
 </html>
