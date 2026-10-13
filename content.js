@@ -200,26 +200,35 @@ Student Question: "${userMessage}"
 
 IMPORTANT: Give a helpful progressive hint (intuition, pattern, data structure, or edge case). Do NOT reveal the full solution code unless the student explicitly asks for complete code.`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const models = ["gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash"];
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      })
-    });
+  for (const model of models) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-    const data = await response.json();
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }]
+        })
+      });
 
-    if (!response.ok) {
+      const data = await response.json();
+
+      if (response.ok) {
+        return data.candidates[0].content.parts[0].text;
+      }
+
+      // If model not found (404), try next model in the list
+      if (response.status === 404 && model !== models[models.length - 1]) {
+        continue;
+      }
+
       return `Error: ${data.error?.message || "Failed to call Gemini API"}`;
+    } catch (error) {
+      return `Network Error: ${error.message}`;
     }
-
-    return data.candidates[0].content.parts[0].text;
-  } catch (error) {
-    return `Network Error: ${error.message}`;
   }
 }
 
